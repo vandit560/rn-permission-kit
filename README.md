@@ -6,6 +6,57 @@ It abstracts away the complexity of `react-native-permissions` into a unified, d
 
 ---
 
+## 🤔 Why rn-permission-kit?
+
+If you've ever used `react-native-permissions` directly, you know it takes a lot of boilerplate to handle a complete "Check → Request → Show Alert" flow correctly on both platforms.
+
+### ❌ Using `react-native-permissions` directly (35+ Lines)
+
+```typescript
+import { check, request, RESULTS, PERMISSIONS } from "react-native-permissions";
+import { Platform, Alert, Linking } from "react-native";
+
+const handleCamera = async () => {
+  const p =
+    Platform.OS === "ios" ? PERMISSIONS.IOS.CAMERA : PERMISSIONS.ANDROID.CAMERA;
+
+  const status = await check(p);
+
+  if (status === RESULTS.GRANTED) return true;
+
+  if (status === RESULTS.DENIED) {
+    const result = await request(p);
+    if (result === RESULTS.GRANTED) return true;
+    if (result === RESULTS.BLOCKED) {
+      Alert.alert("Camera", "Permission blocked. Open settings?", [
+        { text: "Cancel" },
+        { text: "Settings", onPress: () => Linking.openSettings() },
+      ]);
+    }
+  }
+
+  if (status === RESULTS.BLOCKED) {
+    Alert.alert("Camera", "Permission blocked. Open settings?", [
+      { text: "Cancel" },
+      { text: "Settings", onPress: () => Linking.openSettings() },
+    ]);
+  }
+
+  return false;
+};
+```
+
+### ✅ Using `rn-permission-kit` (3 Lines)
+
+```typescript
+import { handleCameraPermission } from "rn-permission-kit";
+
+// Handles Platform detection, Check, Request, and Blocked Alert automatically!
+await handleCameraPermission();
+```
+
+---
+
 ## 🚀 Features
 
 - **✅ Super Simple API**: Unified functions for check, request, and automatic handling.
@@ -158,37 +209,51 @@ if (results.CAMERA && results.MICROPHONE) {
 Every method is `async` and returns a `Promise`.
 
 ##### 🚀 **requestPermission**
+
 > **Signature**: `requestPermission(type: PermissionType)`
+>
 > - **Returns**: `Promise<boolean>`
 > - **Description**: Attempts to request a specific permission from the user. Returns `true` if granted.
 
 ##### 🔍 **checkPermission**
+
 > **Signature**: `checkPermission(type: PermissionType)`
+>
 > - **Returns**: `Promise<boolean>`
 > - **Description**: Checks the current status of a permission. Returns `true` if already granted.
 
 ##### ⚡ **handlePermission (Best for UI)**
+
 > **Signature**: `handlePermission(type: PermissionType, options?: PermissionOptions)`
+>
 > - **Returns**: `Promise<boolean>`
 > - **Description**: The ultimate helper. **Check → Request → Show Alert** (if blocked). Customize the alert or override with `onBlocked` via the options object.
 
 ##### 📦 **requestMultiplePermissions**
+
 > **Signature**: `requestMultiplePermissions(types: PermissionType[])`
+>
 > - **Returns**: `Promise<Record<string, boolean>>`
 > - **Description**: Bulk request several permissions at once. Returns an object mapping type to a grant boolean.
 
 ##### 🔭 **checkMultiplePermissions**
+
 > **Signature**: `checkMultiplePermissions(types: PermissionType[])`
+>
 > - **Returns**: `Promise<Record<string, boolean>>`
 > - **Description**: Efficiently check multiple statuses at once.
 
 ##### 🛠️ **handleMultiplePermissions**
+
 > **Signature**: `handleMultiplePermissions(types: PermissionType[], options?: PermissionOptions)`
+>
 > - **Returns**: `Promise<Record<string, boolean>>`
 > - **Description**: Handles a list of permissions with one cohesive logic. If any are blocked, it shows a single alert or triggers `onBlocked`.
 
 ##### ⚙️ **openAppSettings**
+
 > **Signature**: `openAppSettings()`
+>
 > - **Returns**: `Promise<void>`
 > - **Description**: Programmatically open the system settings screen for your app.
 
@@ -197,7 +262,9 @@ Every method is `async` and returns a `Promise`.
 ### ⚛️ React Hooks
 
 ##### 🎣 **usePermission**
+
 > **Signature**: `usePermission(type, { title?, message? })`
+>
 > - **Returns**: `{ isBlocked, checkAndRequest, resetBlocked }`
 > - **Description**: A powerful hook for UI components. It tracks blocked state automatically and handles the entire permission lifecycle.
 
