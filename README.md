@@ -168,31 +168,29 @@ if (results.camera && results.microphone) {
 | :--- | :--- | :--- | :--- |
 | `usePermission` | `type, { title?, message? }` | `{ isBlocked, checkAndRequest, resetBlocked }` | Manage permission state in UI. |
 
-### ⚡ Permission Reference
+### ⚡ Permission Reference (All Methods)
 
-For each permission, you can use generic methods with the **Constant** or use the built-in **Convenience Helpers**.
+Below is the complete reference for every supported permission, including its constant, native requirements, and all convenience methods.
 
-> [!TIP]
-> **Convenience Helper Pattern**: All permissions follow the pattern: `request[Name]`, `check[Name]Permission`, and `handle[Name]Permission` (e.g., `requestCamera`, `checkCameraPermission`).
-
-| Permission | Constant | Native Keys (iOS / Android) |
+| Permission | Native Config (iOS / Android) | Convenience Helpers |
 | :--- | :--- | :--- |
-| **Camera** | `camera` | `NSCameraUsageDescription`<br>`android.permission.CAMERA` |
-| **Location** | `location` | `NSLocationWhenInUseUsageDescription`<br>`android.permission.ACCESS_FINE_LOCATION` |
-| **Location Always** | `locationAlways` | `NSLocationAlwaysAndWhenInUseUsageDescription`<br>`android.permission.ACCESS_BACKGROUND_LOCATION` |
-| **Microphone** | `microphone` | `NSMicrophoneUsageDescription`<br>`android.permission.RECORD_AUDIO` |
-| **Contacts** | `contacts` | `NSContactsUsageDescription`<br>`android.permission.READ_CONTACTS` |
-| **Storage / Photos** | `storage`, `photos` | `NSPhotoLibraryUsageDescription`<br>`android.permission.READ_EXTERNAL_STORAGE` / `READ_MEDIA_IMAGES` |
-| **Notifications** | `notifications` | **Android**: `android.permission.POST_NOTIFICATIONS` |
-| **Bluetooth** | `bluetooth` | `NSBluetoothAlwaysUsageDescription`<br>`android.permission.BLUETOOTH_CONNECT` |
-| **Calendar** | `calendar` | `NSCalendarsUsageDescription`<br>`android.permission.READ_CALENDAR` |
-| **Reminders** | `reminders` | `NSRemindersUsageDescription` |
-| **Motion** | `motion` | `NSMotionUsageDescription`<br>`android.permission.ACTIVITY_RECOGNITION` |
-| **Media Library** | `mediaLibrary` | `NSAppleMusicUsageDescription`<br>`android.permission.READ_MEDIA_VIDEO` |
-| **Speech** | `speechRecognition` | `NSSpeechRecognitionUsageDescription`<br>`android.permission.RECORD_AUDIO` |
-| **Tracking** | `tracking` | `NSUserTrackingUsageDescription` |
-| **FaceID** | `faceId` | `NSFaceIDUsageDescription` |
-| **Siri** | `siri` | `NSSiriUsageDescription` |
+| **Camera**<br>`camera` | **iOS**: `NSCameraUsageDescription`<br>**Android**: `android.permission.CAMERA` | `requestCamera()`<br>`checkCameraPermission()`<br>`handleCameraPermission()` |
+| **Location**<br>`location` | **iOS**: `NSLocationWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_FINE_LOCATION` | `requestLocation()`<br>`checkLocationPermission()`<br>`handleLocationPermission()` |
+| **Location Always**<br>`locationAlways` | **iOS**: `NSLocationAlwaysAndWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_BACKGROUND_LOCATION` | `requestLocationAlways()`<br>`checkLocationAlwaysPermission()`<br>`handleLocationAlwaysPermission()` |
+| **Microphone**<br>`microphone` | **iOS**: `NSMicrophoneUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestMicrophone()`<br>`checkMicrophonePermission()`<br>`handleMicrophonePermission()` |
+| **Contacts**<br>`contacts` | **iOS**: `NSContactsUsageDescription`<br>**Android**: `android.permission.READ_CONTACTS` | `requestContacts()`<br>`checkContactsPermission()`<br>`handleContactsPermission()` |
+| **Storage**<br>`storage` | **iOS**: `NSPhotoLibraryUsageDescription`<br>**Android**: `android.permission.READ_EXTERNAL_STORAGE` | `requestStorage()`<br>`checkStoragePermission()`<br>`handleStoragePermission()` |
+| **Photos**<br>`photos` | **iOS**: `NSPhotoLibraryUsageDescription`<br>**Android**: `android.permission.READ_MEDIA_IMAGES` | `requestPhotos()`<br>`checkPhotosPermission()`<br>`handlePhotosPermission()` |
+| **Notifications**<br>`notifications` | **Android**: `android.permission.POST_NOTIFICATIONS` | `requestNotifications()`<br>`checkNotificationsPermission()`<br>`handleNotificationsPermission()` |
+| **Bluetooth**<br>`bluetooth` | **iOS**: `NSBluetoothAlwaysUsageDescription`<br>**Android**: `android.permission.BLUETOOTH_CONNECT` | `requestBluetooth()`<br>`checkBluetoothPermission()`<br>`handleBluetoothPermission()` |
+| **Calendar**<br>`calendar` | **iOS**: `NSCalendarsUsageDescription`<br>**Android**: `android.permission.READ_CALENDAR` | `requestCalendar()`<br>`checkCalendarPermission()`<br>`handleCalendarPermission()` |
+| **Reminders**<br>`reminders` | **iOS**: `NSRemindersUsageDescription` | `requestReminders()`<br>`checkRemindersPermission()`<br>`handleRemindersPermission()` |
+| **Motion**<br>`motion` | **iOS**: `NSMotionUsageDescription`<br>**Android**: `android.permission.ACTIVITY_RECOGNITION` | `requestMotion()`<br>`checkMotionPermission()`<br>`handleMotionPermission()` |
+| **Media Library**<br>`mediaLibrary` | **iOS**: `NSAppleMusicUsageDescription`<br>**Android**: `android.permission.READ_MEDIA_VIDEO` | `requestMediaLibrary()`<br>`checkMediaLibraryPermission()`<br>`handleMediaLibraryPermission()` |
+| **Speech**<br>`speechRecognition` | **iOS**: `NSSpeechRecognitionUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestSpeechRecognition()`<br>`checkSpeechRecognitionPermission()`<br>`handleSpeechRecognitionPermission()` |
+| **Tracking**<br>`tracking` | **iOS**: `NSUserTrackingUsageDescription` | `requestTracking()`<br>`checkTrackingPermission()`<br>`handleTrackingPermission()` |
+| **FaceID**<br>`faceId` | **iOS**: `NSFaceIDUsageDescription` | `requestFaceId()`<br>`checkFaceIdPermission()`<br>`handleFaceIdPermission()` |
+| **Siri**<br>`siri` | **iOS**: `NSSiriUsageDescription` | `requestSiri()`<br>`checkSiriPermission()`<br>`handleSiriPermission()` |
 
 ---
 
