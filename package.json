@@ -1,6 +1,6 @@
 {
   "name": "rn-permission-kit",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simplified React Native permission helper.",
   "main": "index.ts",
   "types": "index.ts",
