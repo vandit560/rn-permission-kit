@@ -24,7 +24,65 @@ npm install rn-permission-kit
 ```
 
 
-### ⚙️ Mandatory Configuration
+### ⚙️ Native Setup
+
+Since this library depends on `react-native-permissions`, you must configure your native projects for the specific permissions you want to use.
+
+<details>
+  <summary><b>🍏 iOS Setup</b> (Click to Expand)</summary>
+
+  1. **Update your `Podfile`**:
+     Add the specific permission handlers you need. This reduces your app size by only including the code for permissions you actually use.
+
+     ```ruby
+     target 'YourTargetName' do
+       # ... 
+       permissions_path = '../node_modules/react-native-permissions/ios'
+
+       # Add only the ones you need:
+       pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+       pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+       pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+       pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
+       pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+       pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
+       pod 'Permission-Contacts', :path => "#{permissions_path}/Contacts"
+       pod 'Permission-Bluetooth', :path => "#{permissions_path}/Bluetooth"
+       pod 'Permission-Calendars', :path => "#{permissions_path}/Calendars"
+       pod 'Permission-Reminders', :path => "#{permissions_path}/Reminders"
+       pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
+       pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
+       pod 'Permission-SpeechRecognition', :path => "#{permissions_path}/SpeechRecognition"
+       pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
+       pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
+       pod 'Permission-Siri', :path => "#{permissions_path}/Siri"
+     end
+     ```
+
+  2. **Update `Info.plist`**:
+     Add the corresponding usage description strings (see the [Reference Table](#-permission-reference-configuration--helpers) for keys).
+
+  3. **Install Pods**:
+     ```bash
+     cd ios && pod install
+     ```
+</details>
+
+<details>
+  <summary><b>🤖 Android Setup</b> (Click to Expand)</summary>
+
+  1. **Update `AndroidManifest.xml`**:
+     Add the necessary `<uses-permission>` tags in your `android/app/src/main/AndroidManifest.xml` (see the [Reference Table](#-permission-reference-configuration--helpers) for exact strings).
+
+     ```xml
+     <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+         <uses-permission android:name="android.permission.CAMERA" />
+         <!-- Add others as needed -->
+     </manifest>
+     ```
+</details>
+
+---
 
 Please refer to the [Permission Reference](#-permission-reference-configuration--helpers) table below for the specific keys and permissions you need to add to your native projects.
 
