@@ -1,0 +1,48 @@
+{
+  "name": "rn-permission-kit",
+  "version": "1.0.0",
+  "description": "Simplified React Native permission helper.",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "index.ts",
+    "permissions/",
+    "utils/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "permissions",
+    "helper",
+    "ios",
+    "android",
+    "camera",
+    "location",
+    "storage",
+    "microphone",
+    "contacts",
+    "notifications",
+    "bluetooth",
+    "calendar",
+    "photos"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "react-native-permissions": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-native": "^0.72.8",
+    "typescript": "^5.9.3"
+  }
+}
+
