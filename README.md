@@ -96,7 +96,7 @@ Avoid typos by using the exported `PERMISSION_TYPES` constant.
 ```typescript
 import { requestPermission, PERMISSION_TYPES } from 'rn-permission-kit';
 
-const granted = await requestPermission(PERMISSION_TYPES.camera);
+const granted = await requestPermission(PERMISSION_TYPES.CAMERA);
 ```
 
 ### ⚛️ React Hook (For Custom UI / Dialogs)
@@ -106,7 +106,7 @@ Use the `usePermission` hook if you want to show your own React component when a
 import { usePermission, PERMISSION_TYPES } from 'rn-permission-kit';
 
 const MyComponent = () => {
-  const { checkAndRequest, isBlocked } = usePermission(PERMISSION_TYPES.camera);
+  const { checkAndRequest, isBlocked } = usePermission(PERMISSION_TYPES.CAMERA);
 
   return (
     <View>
@@ -126,7 +126,7 @@ The `handlePermission` function checks status, requests if needed, and shows an 
 import { handlePermission, PERMISSION_TYPES } from 'rn-permission-kit';
 
 const granted = await handlePermission(
-  PERMISSION_TYPES.location,
+  PERMISSION_TYPES.LOCATION,
   "Location Access",
   "We need your location for mapping features."
 );
@@ -139,11 +139,11 @@ Request multiple permissions at once efficiently.
 import { handleMultiplePermissions, PERMISSION_TYPES } from 'rn-permission-kit';
 
 const results = await handleMultiplePermissions([
-  PERMISSION_TYPES.camera,
-  PERMISSION_TYPES.microphone
+  PERMISSION_TYPES.CAMERA,
+  PERMISSION_TYPES.MICROPHONE
 ]);
 
-if (results.camera && results.microphone) {
+if (results.CAMERA && results.MICROPHONE) {
   // Good to go!
 }
 ```
@@ -174,23 +174,24 @@ Below is the complete reference for every supported permission, including its co
 
 | Permission | Native Config (iOS / Android) | Convenience Helpers |
 | :--- | :--- | :--- |
-| **Camera**<br>`camera` | **iOS**: `NSCameraUsageDescription`<br>**Android**: `android.permission.CAMERA` | `requestCamera()`<br>`checkCameraPermission()`<br>`handleCameraPermission()` |
-| **Location**<br>`location` | **iOS**: `NSLocationWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_FINE_LOCATION` | `requestLocation()`<br>`checkLocationPermission()`<br>`handleLocationPermission()` |
-| **Location Always**<br>`locationAlways` | **iOS**: `NSLocationAlwaysAndWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_BACKGROUND_LOCATION` | `requestLocationAlways()`<br>`checkLocationAlwaysPermission()`<br>`handleLocationAlwaysPermission()` |
-| **Microphone**<br>`microphone` | **iOS**: `NSMicrophoneUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestMicrophone()`<br>`checkMicrophonePermission()`<br>`handleMicrophonePermission()` |
-| **Contacts**<br>`contacts` | **iOS**: `NSContactsUsageDescription`<br>**Android**: `android.permission.READ_CONTACTS` | `requestContacts()`<br>`checkContactsPermission()`<br>`handleContactsPermission()` |
-| **Storage**<br>`storage` | **iOS**: `NSPhotoLibraryUsageDescription`<br>**Android**: `android.permission.READ_EXTERNAL_STORAGE` | `requestStorage()`<br>`checkStoragePermission()`<br>`handleStoragePermission()` |
-| **Photos**<br>`photos` | **iOS**: `NSPhotoLibraryUsageDescription`<br>**Android**: `android.permission.READ_MEDIA_IMAGES` | `requestPhotos()`<br>`checkPhotosPermission()`<br>`handlePhotosPermission()` |
-| **Notifications**<br>`notifications` | **Android**: `android.permission.POST_NOTIFICATIONS` | `requestNotifications()`<br>`checkNotificationsPermission()`<br>`handleNotificationsPermission()` |
-| **Bluetooth**<br>`bluetooth` | **iOS**: `NSBluetoothAlwaysUsageDescription`<br>**Android**: `android.permission.BLUETOOTH_CONNECT` | `requestBluetooth()`<br>`checkBluetoothPermission()`<br>`handleBluetoothPermission()` |
-| **Calendar**<br>`calendar` | **iOS**: `NSCalendarsUsageDescription`<br>**Android**: `android.permission.READ_CALENDAR` | `requestCalendar()`<br>`checkCalendarPermission()`<br>`handleCalendarPermission()` |
-| **Reminders**<br>`reminders` | **iOS**: `NSRemindersUsageDescription` | `requestReminders()`<br>`checkRemindersPermission()`<br>`handleRemindersPermission()` |
-| **Motion**<br>`motion` | **iOS**: `NSMotionUsageDescription`<br>**Android**: `android.permission.ACTIVITY_RECOGNITION` | `requestMotion()`<br>`checkMotionPermission()`<br>`handleMotionPermission()` |
-| **Media Library**<br>`mediaLibrary` | **iOS**: `NSAppleMusicUsageDescription`<br>**Android**: `android.permission.READ_MEDIA_VIDEO` | `requestMediaLibrary()`<br>`checkMediaLibraryPermission()`<br>`handleMediaLibraryPermission()` |
-| **Speech**<br>`speechRecognition` | **iOS**: `NSSpeechRecognitionUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestSpeechRecognition()`<br>`checkSpeechRecognitionPermission()`<br>`handleSpeechRecognitionPermission()` |
-| **Tracking**<br>`tracking` | **iOS**: `NSUserTrackingUsageDescription` | `requestTracking()`<br>`checkTrackingPermission()`<br>`handleTrackingPermission()` |
-| **FaceID**<br>`faceId` | **iOS**: `NSFaceIDUsageDescription` | `requestFaceId()`<br>`checkFaceIdPermission()`<br>`handleFaceIdPermission()` |
-| **Siri**<br>`siri` | **iOS**: `NSSiriUsageDescription` | `requestSiri()`<br>`checkSiriPermission()`<br>`handleSiriPermission()` |
+| **CAMERA** | **iOS**: `NSCameraUsageDescription`<br>**Android**: `android.permission.CAMERA` | `requestCamera()`<br>`checkCameraPermission()`<br>`handleCameraPermission()` |
+| **LOCATION** | **iOS**: `NSLocationWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_FINE_LOCATION` | `requestLocation()`<br>`checkLocationPermission()`<br>`handleLocationPermission()` |
+| **LOCATION_ALWAYS** | **iOS**: `NSLocationAlwaysAndWhenInUseUsageDescription`<br>**Android**: `android.permission.ACCESS_BACKGROUND_LOCATION` | `requestLocationAlways()`<br>`checkLocationAlwaysPermission()`<br>`handleLocationAlwaysPermission()` |
+| **MICROPHONE** | **iOS**: `NSMicrophoneUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestMicrophone()`<br>`checkMicrophonePermission()`<br>`handleMicrophonePermission()` |
+| **CONTACTS** | **iOS**: `NSContactsUsageDescription`<br>**Android**: `android.permission.READ_CONTACTS` | `requestContacts()`<br>`checkContactsPermission()`<br>`handleContactsPermission()` |
+| **STORAGE** | **iOS**: `NSPhotoLibraryUsageDescription`<br>**Android**: `android.permission.READ_EXTERNAL_STORAGE` | `requestStorage()`<br>`checkStoragePermission()`<br>`handleStoragePermission()` |
+| **NOTIFICATIONS** | **Android**: `android.permission.POST_NOTIFICATIONS` | `requestNotifications()`<br>`checkNotificationsPermission()`<br>`handleNotificationsPermission()` |
+| **BLUETOOTH** | **iOS**: `NSBluetoothAlwaysUsageDescription`<br>**Android**: `android.permission.BLUETOOTH_CONNECT` | `requestBluetooth()`<br>`checkBluetoothPermission()`<br>`handleBluetoothPermission()` |
+| **CALENDAR** | **iOS**: `NSCalendarsUsageDescription`<br>**Android**: `android.permission.READ_CALENDAR` | `requestCalendar()`<br>`checkCalendarPermission()`<br>`handleCalendarPermission()` |
+| **REMINDERS** | **iOS**: `NSRemindersUsageDescription` | `requestReminders()`<br>`checkRemindersPermission()`<br>`handleRemindersPermission()` |
+| **MOTION** | **iOS**: `NSMotionUsageDescription`<br>**Android**: `android.permission.ACTIVITY_RECOGNITION` | `requestMotion()`<br>`checkMotionPermission()`<br>`handleMotionPermission()` |
+| **MEDIA_LIBRARY** | **iOS**: `NSAppleMusicUsageDescription`<br>**Android**: `android.permission.READ_MEDIA_VIDEO` | `requestMediaLibrary()`<br>`checkMediaLibraryPermission()`<br>`handleMediaLibraryPermission()` |
+| **SPEECH_RECOGNITION** | **iOS**: `NSSpeechRecognitionUsageDescription`<br>**Android**: `android.permission.RECORD_AUDIO` | `requestSpeechRecognition()`<br>`checkSpeechRecognitionPermission()`<br>`handleSpeechRecognitionPermission()` |
+| **TRACKING** | **iOS**: `NSUserTrackingUsageDescription` | `requestTracking()`<br>`checkTrackingPermission()`<br>`handleTrackingPermission()` |
+| **FACE_ID** | **iOS**: `NSFaceIDUsageDescription` | `requestFaceId()`<br>`checkFaceIdPermission()`<br>`handleFaceIdPermission()` |
+| **SIRI** | **iOS**: `NSSiriUsageDescription` | `requestSiri()`<br>`checkSiriPermission()`<br>`handleSiriPermission()` |
+
+---
 
 ---
 
