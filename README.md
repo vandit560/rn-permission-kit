@@ -172,53 +172,116 @@ if (results.CAMERA && results.MICROPHONE) {
 | :-------------- | :--------------------------- | :--------------------------------------------- | :----------------------------- |
 | `usePermission` | `type, { title?, message? }` | `{ isBlocked, checkAndRequest, resetBlocked }` | Manage permission state in UI. |
 
-### ⚡ Permission Reference (Cheat Sheet)
+### ⚡ Permission Reference
 
-Permissions are grouped by category for easy lookup. Click a category to expand!
+Permissions are organized by category. Each section includes the **Constant**, its **Native Setup**, and all **Convenience Helpers**.
 
 ---
 
 #### 🗺️ Location Services
 
-| Permission          | Native Config (iOS/Android)                                                          | Convenience Helpers                                                                            |
-| :------------------ | :----------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **LOCATION**        | `NSLocationWhenInUseUsageDescription`<br>`android.permission.ACCESS_FINE_LOCATION`   | `requestLocation`<br>`checkLocationPermission`<br>`handleLocationPermission`                   |
-| **LOCATION_ALWAYS** | `NSLocationAlwaysAndWhenInUseUsageDescription`<br>`android.permission.ACCESS_BACKGROUND_LOCATION` | `requestLocationAlways`<br>`checkLocationAlwaysPermission`<br>`handleLocationAlwaysPermission` |
+##### 📍 **LOCATION**
+> **Constant**: `PERMISSION_TYPES.LOCATION`
+> - 🍎 **iOS Key**: `NSLocationWhenInUseUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.ACCESS_FINE_LOCATION`
+> - 🛠️ **Methods**: `requestLocation()`, `checkLocationPermission()`, `handleLocationPermission()`
+
+##### 🏠 **LOCATION_ALWAYS**
+> **Constant**: `PERMISSION_TYPES.LOCATION_ALWAYS`
+> - 🍎 **iOS Key**: `NSLocationAlwaysAndWhenInUseUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.ACCESS_BACKGROUND_LOCATION`
+> - 🛠️ **Methods**: `requestLocationAlways()`, `checkLocationAlwaysPermission()`, `handleLocationAlwaysPermission()`
 
 ---
 
 #### 📸 Media & Hardware
 
-| Permission        | Native Config (iOS/Android)                                             | Convenience Helpers                                                                      |
-| :---------------- | :---------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |
-| **CAMERA**        | `NSCameraUsageDescription`<br>`android.permission.CAMERA`               | `requestCamera`<br>`checkCameraPermission`<br>`handleCameraPermission`                   |
-| **MICROPHONE**    | `NSMicrophoneUsageDescription`<br>`android.permission.RECORD_AUDIO`     | `requestMicrophone`<br>`checkMicrophonePermission`<br>`handleMicrophonePermission`       |
-| **MEDIA_LIBRARY** | `NSAppleMusicUsageDescription`<br>`android.permission.READ_MEDIA_VIDEO` | `requestMediaLibrary`<br>`checkMediaLibraryPermission`<br>`handleMediaLibraryPermission` |
-| **MOTION**        | `NSMotionUsageDescription`<br>`android.permission.ACTIVITY_RECOGNITION` | `requestMotion`<br>`checkMotionPermission`<br>`handleMotionPermission`                   |
+##### 📷 **CAMERA**
+> **Constant**: `PERMISSION_TYPES.CAMERA`
+> - 🍎 **iOS Key**: `NSCameraUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.CAMERA`
+> - 🛠️ **Methods**: `requestCamera()`, `checkCameraPermission()`, `handleCameraPermission()`
+
+##### 🎤 **MICROPHONE**
+> **Constant**: `PERMISSION_TYPES.MICROPHONE`
+> - 🍎 **iOS Key**: `NSMicrophoneUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.RECORD_AUDIO`
+> - 🛠️ **Methods**: `requestMicrophone()`, `checkMicrophonePermission()`, `handleMicrophonePermission()`
+
+##### 🏃 **MOTION**
+> **Constant**: `PERMISSION_TYPES.MOTION`
+> - 🍎 **iOS Key**: `NSMotionUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.ACTIVITY_RECOGNITION`
+> - 🛠️ **Methods**: `requestMotion()`, `checkMotionPermission()`, `handleMotionPermission()`
+
+##### 🎶 **MEDIA_LIBRARY**
+> **Constant**: `PERMISSION_TYPES.MEDIA_LIBRARY`
+> - 🍎 **iOS Key**: `NSAppleMusicUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.READ_MEDIA_VIDEO`
+> - 🛠️ **Methods**: `requestMediaLibrary()`, `checkMediaLibraryPermission()`, `handleMediaLibraryPermission()`
 
 ---
 
-#### 👤 Personal Data
+#### 👤 Personal & Privacy
 
-| Permission    | Native Config (iOS/Android)                                                    | Convenience Helpers                                                             |
-| :------------ | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------ |
-| **CONTACTS**  | `NSContactsUsageDescription`<br>`android.permission.READ_CONTACTS`             | `requestContacts`<br>`checkContactsPermission`<br>`handleContactsPermission`    |
-| **STORAGE**   | `NSPhotoLibraryUsageDescription`<br>`android.permission.READ_EXTERNAL_STORAGE` | `requestStorage`<br>`checkStoragePermission`<br>`handleStoragePermission`       |
-| **CALENDAR**  | `NSCalendarsUsageDescription`<br>`android.permission.READ_CALENDAR`            | `requestCalendar`<br>`checkCalendarPermission`<br>`handleCalendarPermission`    |
-| **REMINDERS** | **iOS ONLY**: `NSRemindersUsageDescription`                                    | `requestReminders`<br>`checkRemindersPermission`<br>`handleRemindersPermission` |
+##### 👤 **CONTACTS**
+> **Constant**: `PERMISSION_TYPES.CONTACTS`
+> - 🍎 **iOS Key**: `NSContactsUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.READ_CONTACTS`
+> - 🛠️ **Methods**: `requestContacts()`, `checkContactsPermission()`, `handleContactsPermission()`
+
+##### 💾 **STORAGE**
+> **Constant**: `PERMISSION_TYPES.STORAGE`
+> - 🍎 **iOS Key**: `NSPhotoLibraryUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.READ_EXTERNAL_STORAGE`
+> - 🛠️ **Methods**: `requestStorage()`, `checkStoragePermission()`, `handleStoragePermission()`
+
+##### 📅 **CALENDAR**
+> **Constant**: `PERMISSION_TYPES.CALENDAR`
+> - 🍎 **iOS Key**: `NSCalendarsUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.READ_CALENDAR`
+> - 🛠️ **Methods**: `requestCalendar()`, `checkCalendarPermission()`, `handleCalendarPermission()`
+
+##### 📝 **REMINDERS** (iOS Only)
+> **Constant**: `PERMISSION_TYPES.REMINDERS`
+> - 🍎 **iOS Key**: `NSRemindersUsageDescription`
+> - 🛠️ **Methods**: `requestReminders()`, `checkRemindersPermission()`, `handleRemindersPermission()`
 
 ---
 
 #### 📱 System Services
 
-| Permission        | Native Config (iOS/Android)                                                   | Convenience Helpers                                                                                     |
-| :---------------- | :---------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| **NOTIFICATIONS** | **Android ONLY**: `android.permission.POST_NOTIFICATIONS`                     | `requestNotifications`<br>`checkNotificationsPermission`<br>`handleNotificationsPermission`             |
-| **BLUETOOTH**     | `NSBluetoothAlwaysUsageDescription`<br>`android.permission.BLUETOOTH_CONNECT` | `requestBluetooth`<br>`checkBluetoothPermission`<br>`handleBluetoothPermission`                         |
-| **SPEECH**        | `NSSpeechRecognitionUsageDescription`<br>`android.permission.RECORD_AUDIO`    | `requestSpeechRecognition`<br>`checkSpeechRecognitionPermission`<br>`handleSpeechRecognitionPermission` |
-| **TRACKING**      | **iOS ONLY**: `NSUserTrackingUsageDescription`                                | `requestTracking`<br>`checkTrackingPermission`<br>`handleTrackingPermission`                            |
-| **FACE_ID**       | **iOS ONLY**: `NSFaceIDUsageDescription`                                      | `requestFaceId`<br>`checkFaceIdPermission`<br>`handleFaceIdPermission()`                                |
-| **SIRI**          | **iOS ONLY**: `NSSiriUsageDescription`                                        | `requestSiri`<br>`checkSiriPermission`<br>`handleSiriPermission`                                        |
+##### 🔔 **NOTIFICATIONS** (Android Only)
+> **Constant**: `PERMISSION_TYPES.NOTIFICATIONS`
+> - 🤖 **Android Permission**: `android.permission.POST_NOTIFICATIONS`
+> - 🛠️ **Methods**: `requestNotifications()`, `checkNotificationsPermission()`, `handleNotificationsPermission()`
+
+##### 🦷 **BLUETOOTH**
+> **Constant**: `PERMISSION_TYPES.BLUETOOTH`
+> - 🍎 **iOS Key**: `NSBluetoothAlwaysUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.BLUETOOTH_CONNECT`
+> - 🛠️ **Methods**: `requestBluetooth()`, `checkBluetoothPermission()`, `handleBluetoothPermission()`
+
+##### 🗣️ **SPEECH_RECOGNITION**
+> **Constant**: `PERMISSION_TYPES.SPEECH_RECOGNITION`
+> - 🍎 **iOS Key**: `NSSpeechRecognitionUsageDescription`
+> - 🤖 **Android Permission**: `android.permission.RECORD_AUDIO`
+> - 🛠️ **Methods**: `requestSpeechRecognition()`, `checkSpeechRecognitionPermission()`, `handleSpeechRecognitionPermission()`
+
+##### 🕵️ **TRACKING** (iOS Only)
+> **Constant**: `PERMISSION_TYPES.TRACKING`
+> - 🍎 **iOS Key**: `NSUserTrackingUsageDescription`
+> - 🛠️ **Methods**: `requestTracking()`, `checkTrackingPermission()`, `handleTrackingPermission()`
+
+##### 🆔 **FACE_ID** (iOS Only)
+> **Constant**: `PERMISSION_TYPES.FACE_ID`
+> - 🍎 **iOS Key**: `NSFaceIDUsageDescription`
+> - 🛠️ **Methods**: `requestFaceId()`, `checkFaceIdPermission()`, `handleFaceIdPermission()`
+
+##### 🎙️ **SIRI** (iOS Only)
+> **Constant**: `PERMISSION_TYPES.SIRI`
+> - 🍎 **iOS Key**: `NSSiriUsageDescription`
+> - 🛠️ **Methods**: `requestSiri()`, `checkSiriPermission()`, `handleSiriPermission()`
 
 ---
 
