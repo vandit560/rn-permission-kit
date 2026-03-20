@@ -18,13 +18,18 @@ jobs:
           node-version: "24.x"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Publish to NPM
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Verify NPM Token Presence 🛡️
+        run: |
+          if [ -z "${{ secrets.NPM_TOKEN }}" ]; then
+            echo "NPM_TOKEN is MISSING! ❌ (Please check your GitHub Secrets)"
+            exit 1
+          else
+            echo "NPM_TOKEN is Present! ✅ (NPM will see it)"
+          fi
 
       - name: Install Dependencies
         run: npm install
+
 
       - name: Publish to NPM
         run: npm publish
