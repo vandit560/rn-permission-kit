@@ -156,38 +156,72 @@ if (results.CAMERA && results.MICROPHONE) {
 
 ### 🏗️ Core Methods
 
-| Method                       | Parameters                            | Return Type                        | Description                                  |
-| :--------------------------- | :------------------------------------ | :--------------------------------- | :------------------------------------------- |
-| `requestPermission`          | `type: PermissionType`                | `Promise<boolean>`                 | Requests a single permission.                |
-| `checkPermission`            | `type: PermissionType`                | `Promise<boolean>`                 | Checks if a permission is already granted.   |
-| `handlePermission`           | `type, title?, message?, onBlocked?`  | `Promise<boolean>`                 | **Check → Request → Alert** if blocked.      |
-| `requestMultiplePermissions` | `types: PermissionType[]`             | `Promise<Record<string, boolean>>` | Requests multiple permissions.               |
-| `checkMultiplePermissions`   | `types: PermissionType[]`             | `Promise<Record<string, boolean>>` | Checks multiple permissions.                 |
-| `handleMultiplePermissions`  | `types, title?, message?, onBlocked?` | `Promise<Record<string, boolean>>` | Handles multiple permissions with one alert. |
-| `openAppSettings`            | -                                     | `Promise<void>`                    | Opens the system app settings.               |
+Every method is `async` and returns a `Promise`.
+
+##### 🚀 **requestPermission**
+> **Signature**: `requestPermission(type: PermissionType)`
+> - **Returns**: `Promise<boolean>`
+> - **Description**: Attempts to request a specific permission from the user. Returns `true` if granted.
+
+##### 🔍 **checkPermission**
+> **Signature**: `checkPermission(type: PermissionType)`
+> - **Returns**: `Promise<boolean>`
+> - **Description**: Checks the current status of a permission. Returns `true` if already granted.
+
+##### ⚡ **handlePermission (Best for UI)**
+> **Signature**: `handlePermission(type, title?, message?, onBlocked?)`
+> - **Returns**: `Promise<boolean>`
+> - **Description**: The ultimate helper. **Check → Request → Show Alert** (if blocked). If the user is blocked, it helps them open app settings.
+
+##### 📦 **requestMultiplePermissions**
+> **Signature**: `requestMultiplePermissions(types: PermissionType[])`
+> - **Returns**: `Promise<Record<string, boolean>>`
+> - **Description**: Bulk request several permissions at once. Returns an object mapping type to a grant boolean.
+
+##### 🔭 **checkMultiplePermissions**
+> **Signature**: `checkMultiplePermissions(types: PermissionType[])`
+> - **Returns**: `Promise<Record<string, boolean>>`
+> - **Description**: Efficiently check multiple statuses at once.
+
+##### 🛠️ **handleMultiplePermissions**
+> **Signature**: `handleMultiplePermissions(types, title?, message?, onBlocked?)`
+> - **Returns**: `Promise<Record<string, boolean>>`
+> - **Description**: Handles a list of permissions with one cohesive logic. If any are blocked, it shows a single alert to the user.
+
+##### ⚙️ **openAppSettings**
+> **Signature**: `openAppSettings()`
+> - **Returns**: `Promise<void>`
+> - **Description**: Programmatically open the system settings screen for your app.
+
+---
 
 ### ⚛️ React Hooks
 
-| Hook            | Parameters                   | Returns                                        | description                    |
-| :-------------- | :--------------------------- | :--------------------------------------------- | :----------------------------- |
-| `usePermission` | `type, { title?, message? }` | `{ isBlocked, checkAndRequest, resetBlocked }` | Manage permission state in UI. |
+##### 🎣 **usePermission**
+> **Signature**: `usePermission(type, { title?, message? })`
+> - **Returns**: `{ isBlocked, checkAndRequest, resetBlocked }`
+> - **Description**: A powerful hook for UI components. It tracks blocked state automatically and handles the entire permission lifecycle.
+
+---
 
 ### ⚡ Permission Reference
 
 Permissions are organized by category. Each section includes the **Constant**, its **Native Setup**, and all **Convenience Helpers**.
 
----
-
 #### 🗺️ Location Services
 
 ##### 📍 **LOCATION**
+
 > **Constant**: `PERMISSION_TYPES.LOCATION`
+>
 > - 🍎 **iOS Key**: `NSLocationWhenInUseUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.ACCESS_FINE_LOCATION`
 > - 🛠️ **Methods**: `requestLocation()`, `checkLocationPermission()`, `handleLocationPermission()`
 
 ##### 🏠 **LOCATION_ALWAYS**
+
 > **Constant**: `PERMISSION_TYPES.LOCATION_ALWAYS`
+>
 > - 🍎 **iOS Key**: `NSLocationAlwaysAndWhenInUseUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.ACCESS_BACKGROUND_LOCATION`
 > - 🛠️ **Methods**: `requestLocationAlways()`, `checkLocationAlwaysPermission()`, `handleLocationAlwaysPermission()`
@@ -197,25 +231,33 @@ Permissions are organized by category. Each section includes the **Constant**, i
 #### 📸 Media & Hardware
 
 ##### 📷 **CAMERA**
+
 > **Constant**: `PERMISSION_TYPES.CAMERA`
+>
 > - 🍎 **iOS Key**: `NSCameraUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.CAMERA`
 > - 🛠️ **Methods**: `requestCamera()`, `checkCameraPermission()`, `handleCameraPermission()`
 
 ##### 🎤 **MICROPHONE**
+
 > **Constant**: `PERMISSION_TYPES.MICROPHONE`
+>
 > - 🍎 **iOS Key**: `NSMicrophoneUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.RECORD_AUDIO`
 > - 🛠️ **Methods**: `requestMicrophone()`, `checkMicrophonePermission()`, `handleMicrophonePermission()`
 
 ##### 🏃 **MOTION**
+
 > **Constant**: `PERMISSION_TYPES.MOTION`
+>
 > - 🍎 **iOS Key**: `NSMotionUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.ACTIVITY_RECOGNITION`
 > - 🛠️ **Methods**: `requestMotion()`, `checkMotionPermission()`, `handleMotionPermission()`
 
 ##### 🎶 **MEDIA_LIBRARY**
+
 > **Constant**: `PERMISSION_TYPES.MEDIA_LIBRARY`
+>
 > - 🍎 **iOS Key**: `NSAppleMusicUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.READ_MEDIA_VIDEO`
 > - 🛠️ **Methods**: `requestMediaLibrary()`, `checkMediaLibraryPermission()`, `handleMediaLibraryPermission()`
@@ -225,25 +267,33 @@ Permissions are organized by category. Each section includes the **Constant**, i
 #### 👤 Personal & Privacy
 
 ##### 👤 **CONTACTS**
+
 > **Constant**: `PERMISSION_TYPES.CONTACTS`
+>
 > - 🍎 **iOS Key**: `NSContactsUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.READ_CONTACTS`
 > - 🛠️ **Methods**: `requestContacts()`, `checkContactsPermission()`, `handleContactsPermission()`
 
 ##### 💾 **STORAGE**
+
 > **Constant**: `PERMISSION_TYPES.STORAGE`
+>
 > - 🍎 **iOS Key**: `NSPhotoLibraryUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.READ_EXTERNAL_STORAGE`
 > - 🛠️ **Methods**: `requestStorage()`, `checkStoragePermission()`, `handleStoragePermission()`
 
 ##### 📅 **CALENDAR**
+
 > **Constant**: `PERMISSION_TYPES.CALENDAR`
+>
 > - 🍎 **iOS Key**: `NSCalendarsUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.READ_CALENDAR`
 > - 🛠️ **Methods**: `requestCalendar()`, `checkCalendarPermission()`, `handleCalendarPermission()`
 
 ##### 📝 **REMINDERS** (iOS Only)
+
 > **Constant**: `PERMISSION_TYPES.REMINDERS`
+>
 > - 🍎 **iOS Key**: `NSRemindersUsageDescription`
 > - 🛠️ **Methods**: `requestReminders()`, `checkRemindersPermission()`, `handleRemindersPermission()`
 
@@ -252,34 +302,46 @@ Permissions are organized by category. Each section includes the **Constant**, i
 #### 📱 System Services
 
 ##### 🔔 **NOTIFICATIONS** (Android Only)
+
 > **Constant**: `PERMISSION_TYPES.NOTIFICATIONS`
+>
 > - 🤖 **Android Permission**: `android.permission.POST_NOTIFICATIONS`
 > - 🛠️ **Methods**: `requestNotifications()`, `checkNotificationsPermission()`, `handleNotificationsPermission()`
 
 ##### 🦷 **BLUETOOTH**
+
 > **Constant**: `PERMISSION_TYPES.BLUETOOTH`
+>
 > - 🍎 **iOS Key**: `NSBluetoothAlwaysUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.BLUETOOTH_CONNECT`
 > - 🛠️ **Methods**: `requestBluetooth()`, `checkBluetoothPermission()`, `handleBluetoothPermission()`
 
 ##### 🗣️ **SPEECH_RECOGNITION**
+
 > **Constant**: `PERMISSION_TYPES.SPEECH_RECOGNITION`
+>
 > - 🍎 **iOS Key**: `NSSpeechRecognitionUsageDescription`
 > - 🤖 **Android Permission**: `android.permission.RECORD_AUDIO`
 > - 🛠️ **Methods**: `requestSpeechRecognition()`, `checkSpeechRecognitionPermission()`, `handleSpeechRecognitionPermission()`
 
 ##### 🕵️ **TRACKING** (iOS Only)
+
 > **Constant**: `PERMISSION_TYPES.TRACKING`
+>
 > - 🍎 **iOS Key**: `NSUserTrackingUsageDescription`
 > - 🛠️ **Methods**: `requestTracking()`, `checkTrackingPermission()`, `handleTrackingPermission()`
 
 ##### 🆔 **FACE_ID** (iOS Only)
+
 > **Constant**: `PERMISSION_TYPES.FACE_ID`
+>
 > - 🍎 **iOS Key**: `NSFaceIDUsageDescription`
 > - 🛠️ **Methods**: `requestFaceId()`, `checkFaceIdPermission()`, `handleFaceIdPermission()`
 
 ##### 🎙️ **SIRI** (iOS Only)
+
 > **Constant**: `PERMISSION_TYPES.SIRI`
+>
 > - 🍎 **iOS Key**: `NSSiriUsageDescription`
 > - 🛠️ **Methods**: `requestSiri()`, `checkSiriPermission()`, `handleSiriPermission()`
 
