@@ -1,4 +1,4 @@
-import { requestGeneric, checkGeneric, handleGeneric, requestMultipleGeneric, checkMultipleGeneric, handleMultipleGeneric } from './permissions/helper';
+import { requestGeneric, checkGeneric, handleGeneric, requestMultipleGeneric, checkMultipleGeneric, handleMultipleGeneric, PermissionOptions } from './permissions/helper';
 import { openAppSettings } from './utils/platform';
 import { PermissionType } from './permissions/index';
 
@@ -21,10 +21,8 @@ export const checkPermission = (type: PermissionType): Promise<boolean> => check
  */
 export const handlePermission = (
   type: PermissionType,
-  title?: string,
-  message?: string,
-  onBlocked?: () => void
-): Promise<boolean> => handleGeneric(type, title, message, onBlocked);
+  options?: PermissionOptions,
+): Promise<boolean> => handleGeneric(type, options);
 
 /**
  * Unified request multiple permissions function.
@@ -45,10 +43,8 @@ export const checkMultiplePermissions = (
  */
 export const handleMultiplePermissions = (
   types: PermissionType[],
-  title?: string,
-  message?: string,
-  onBlocked?: () => void
-): Promise<Record<string, boolean>> => handleMultipleGeneric(types, title, message, onBlocked);
+  options?: PermissionOptions,
+): Promise<Record<string, boolean>> => handleMultipleGeneric(types, options);
 
 // Hooks for React
 export * from './hooks/usePermission';

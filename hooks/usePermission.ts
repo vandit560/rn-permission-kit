@@ -20,12 +20,11 @@ export const usePermission = (type: PermissionType, options?: UsePermissionOptio
       setBlocked(true);
     };
 
-    const granted = await handleGeneric(
-      type,
-      options?.title,
-      options?.message,
-      onBlocked
-    );
+    const granted = await handleGeneric(type, {
+      title: options?.title,
+      message: options?.message,
+      onBlocked,
+    });
 
     if (granted) {
       setBlocked(false);

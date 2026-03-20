@@ -128,11 +128,10 @@ The `handlePermission` function checks status, requests if needed, and shows an 
 ```typescript
 import { handlePermission, PERMISSION_TYPES } from "rn-permission-kit";
 
-const granted = await handlePermission(
-  PERMISSION_TYPES.LOCATION,
-  "Location Access",
-  "We need your location for mapping features.",
-);
+const granted = await handlePermission(PERMISSION_TYPES.LOCATION, {
+  title: "Location Access",
+  message: "We need your location for mapping features.",
+});
 ```
 
 ### 📦 Multiple Permissions
@@ -169,9 +168,9 @@ Every method is `async` and returns a `Promise`.
 > - **Description**: Checks the current status of a permission. Returns `true` if already granted.
 
 ##### ⚡ **handlePermission (Best for UI)**
-> **Signature**: `handlePermission(type, title?, message?, onBlocked?)`
+> **Signature**: `handlePermission(type: PermissionType, options?: PermissionOptions)`
 > - **Returns**: `Promise<boolean>`
-> - **Description**: The ultimate helper. **Check → Request → Show Alert** (if blocked). If the user is blocked, it helps them open app settings.
+> - **Description**: The ultimate helper. **Check → Request → Show Alert** (if blocked). Customize the alert or override with `onBlocked` via the options object.
 
 ##### 📦 **requestMultiplePermissions**
 > **Signature**: `requestMultiplePermissions(types: PermissionType[])`
@@ -184,9 +183,9 @@ Every method is `async` and returns a `Promise`.
 > - **Description**: Efficiently check multiple statuses at once.
 
 ##### 🛠️ **handleMultiplePermissions**
-> **Signature**: `handleMultiplePermissions(types, title?, message?, onBlocked?)`
+> **Signature**: `handleMultiplePermissions(types: PermissionType[], options?: PermissionOptions)`
 > - **Returns**: `Promise<Record<string, boolean>>`
-> - **Description**: Handles a list of permissions with one cohesive logic. If any are blocked, it shows a single alert to the user.
+> - **Description**: Handles a list of permissions with one cohesive logic. If any are blocked, it shows a single alert or triggers `onBlocked`.
 
 ##### ⚙️ **openAppSettings**
 > **Signature**: `openAppSettings()`
@@ -349,13 +348,17 @@ Permissions are organized by category. Each section includes the **Constant**, i
 
 ## 🛠️ Advanced: Custom Blocked Handler
 
-If you prefer callbacks over hooks, every `handle...` method accepts an `onBlocked` callback as the final argument.
+If you prefer callbacks over hooks, every `handle...` method accepts an `onBlocked` callback within the options object. This is perfect for custom dialogs or logging.
 
 ```typescript
 import { handleCameraPermission } from "rn-permission-kit";
 
-await handleCameraPermission("Custom Title", "Custom Message", () => {
-  console.log("Custom logic for blocked permission!");
+await handleCameraPermission({
+  title: "Custom Title",
+  message: "Custom Message",
+  onBlocked: () => {
+    console.log("Custom logic for blocked permission!");
+  },
 });
 ```
 

@@ -118,69 +118,68 @@ export const checkMultipleGeneric = async (
 };
 
 /**
+ * Options for handling permissions when they are blocked.
+ */
+export interface PermissionOptions {
+  /** Optional title for the alert. */
+  title?: string;
+  /** Optional message for the alert. */
+  message?: string;
+  /** Optional custom handler to run instead of showing the default alert. */
+  onBlocked?: () => void;
+}
+
+/**
+ * Internal helper to handle the blocked permission state.
+ */
+const handleBlocked = (options?: PermissionOptions) => {
+  if (options?.onBlocked) {
+    options.onBlocked();
+  } else {
+    Alert.alert(
+      options?.title || "Permission Required",
+      options?.message ||
+        "This permission is required to use this feature. Please enable it in settings.",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "Settings", onPress: openAppSettings },
+      ],
+      { cancelable: true },
+    );
+  }
+};
+
+/**
  * Handles the complete permission flow: Check -> Request -> (If Blocked) Open Settings Alert.
  * @param permissionType - The key from PERMISSION_MAP.
- * @param title - Optional alert title if blocked.
- * @param message - Optional alert message if blocked.
- * @param onBlocked - Optional custom handler when permission is blocked.
+ * @param options - Optional configuration for blocked state.
  */
 export const handleGeneric = async (
   permissionType: PermissionType,
-  title: string = "Permission Required",
-  message: string = "This permission is required to use this feature. Please enable it in settings.",
-  onBlocked?: () => void,
+  options?: PermissionOptions,
 ): Promise<boolean> => {
-  console.log("handleGeneric");
   const permission = PERMISSION_MAP[permissionType];
   if (!permission) return false;
 
   const status: PermissionStatus = await check(permission);
-  console.log("Status: ", status);
 
   if (status === RESULTS.GRANTED || status === RESULTS.LIMITED) {
     return true;
   }
-  console.log("Status111: ", status);
 
   if (status === RESULTS.DENIED) {
     const requestResult: PermissionStatus = await request(permission);
-    console.log("requestResult :", requestResult);
     if (requestResult === RESULTS.BLOCKED) {
-      if (onBlocked) {
-        onBlocked();
-      } else {
-        Alert.alert(
-          title,
-          message,
-          [
-            { text: "Cancel", style: "cancel" },
-            { text: "Settings", onPress: openAppSettings },
-          ],
-          { cancelable: true },
-        );
-      }
+      handleBlocked(options);
       return false;
     }
     return (
       requestResult === RESULTS.GRANTED || requestResult === RESULTS.LIMITED
     );
   }
-  console.log("status :", status);
 
   if (status === RESULTS.BLOCKED) {
-    if (onBlocked) {
-      onBlocked();
-    } else {
-      Alert.alert(
-        title,
-        message,
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Settings", onPress: openAppSettings },
-        ],
-        { cancelable: true },
-      );
-    }
+    handleBlocked(options);
     return false;
   }
 
@@ -190,16 +189,12 @@ export const handleGeneric = async (
 /**
  * Handles multiple permissions flow: Check/Request -> (If any Blocked) Open Settings Alert.
  * @param permissionTypes - An array of PermissionType keys.
- * @param title - Alert title if blocked.
- * @param message - Alert message if blocked.
- * @param onBlocked - Optional custom handler when any permission is blocked.
+ * @param options - Optional configuration for blocked state.
  * @returns A mapping of each permission type to its granted status.
  */
 export const handleMultipleGeneric = async (
   permissionTypes: PermissionType[],
-  title: string = "Permissions Required",
-  message: string = "Some permissions are required for this app to function correctly. Please enable them in settings.",
-  onBlocked?: () => void,
+  options?: PermissionOptions,
 ): Promise<Record<string, boolean>> => {
   const typesToPermissions: Record<string, Permission> = {};
   const permissionsToRequest: Permission[] = [];
@@ -232,20 +227,9 @@ export const handleMultipleGeneric = async (
   });
 
   if (isAnyBlocked) {
-    if (onBlocked) {
-      onBlocked();
-    } else {
-      Alert.alert(
-        title,
-        message,
-        [
-          { text: "Cancel", style: "cancel" },
-          { text: "Settings", onPress: openAppSettings },
-        ],
-        { cancelable: true },
-      );
-    }
+    handleBlocked(options);
   }
 
   return formattedResults;
 };
+
