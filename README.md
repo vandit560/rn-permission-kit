@@ -24,22 +24,9 @@ npm install rn-permission-kit
 ```
 
 
-### iOS Setup
-Add the necessary usage descriptions in your `Info.plist`:
+### ⚙️ Mandatory Configuration
 
-```xml
-<key>NSCameraUsageDescription</key>
-<string>$(PRODUCT_NAME) needs camera access</string>
-<!-- Add others as needed -->
-```
-
-### Android Setup
-Add the necessary permissions in your `AndroidManifest.xml`:
-
-```xml
-<uses-permission android:name="android.permission.CAMERA" />
-<!-- Add others as needed -->
-```
+Please refer to the [Permission Reference](#-permission-reference-configuration--helpers) table below for the specific keys and permissions you need to add to your native projects.
 
 ---
 
@@ -103,36 +90,63 @@ if (results.camera && results.microphone) {
 }
 ```
 
+## 📘 API Reference
+
+### 🏗️ Core Methods
+
+| Method | Parameters | Return Type | Description |
+| :--- | :--- | :--- | :--- |
+| `requestPermission` | `type: PermissionType` | `Promise<boolean>` | Requests a single permission. |
+| `checkPermission` | `type: PermissionType` | `Promise<boolean>` | Checks if a permission is already granted. |
+| `handlePermission` | `type, title?, message?, onBlocked?` | `Promise<boolean>` | **Check → Request → Alert** if blocked. |
+| `requestMultiplePermissions` | `types: PermissionType[]` | `Promise<Record<string, boolean>>` | Requests multiple permissions. |
+| `checkMultiplePermissions` | `types: PermissionType[]` | `Promise<Record<string, boolean>>` | Checks multiple permissions. |
+| `handleMultiplePermissions` | `types, title?, message?, onBlocked?` | `Promise<Record<string, boolean>>` | Handles multiple permissions with one alert. |
+| `openAppSettings` | - | `Promise<void>` | Opens the system app settings. |
+
+### ⚛️ React Hooks
+
+| Hook | Parameters | Returns | description |
+| :--- | :--- | :--- | :--- |
+| `usePermission` | `type, { title?, message? }` | `{ isBlocked, checkAndRequest, resetBlocked }` | Manage permission state in UI. |
+
+### ⚡ Permission Reference (Configuration & Helpers)
+
+For every supported permission, you can use the generic methods with the `Constant` or use the individual `Convenience Helpers`.
+
+| Permission | Constant | iOS `Info.plist` | Android `AndroidManifest` | Convenience Helpers |
+| :--- | :--- | :--- | :--- | :--- |
+| **Camera** | `camera` | `NSCameraUsageDescription` | `android.permission.CAMERA` | `requestCamera()`<br>`checkCameraPermission()`<br>`handleCameraPermission()` |
+| **Location** | `location` | `NSLocationWhenInUseUsageDescription` | `android.permission.ACCESS_FINE_LOCATION` | `requestLocation()`<br>`checkLocationPermission()`<br>`handleLocationPermission()` |
+| **Location Always** | `locationAlways` | `NSLocationAlwaysAndWhenInUseUsageDescription` | `android.permission.ACCESS_BACKGROUND_LOCATION` | `requestLocationAlways()`<br>`checkLocationAlwaysPermission()`<br>`handleLocationAlwaysPermission()` |
+| **Microphone** | `microphone` | `NSMicrophoneUsageDescription` | `android.permission.RECORD_AUDIO` | `requestMicrophone()`<br>`checkMicrophonePermission()`<br>`handleMicrophonePermission()` |
+| **Contacts** | `contacts` | `NSContactsUsageDescription` | `android.permission.READ_CONTACTS` | `requestContacts()`<br>`checkContactsPermission()`<br>`handleContactsPermission()` |
+| **Storage / Photos** | `storage`, `photos` | `NSPhotoLibraryUsageDescription` | `android.permission.READ_EXTERNAL_STORAGE` or `READ_MEDIA_IMAGES` | `requestStorage()` / `requestPhotos()`<br>`checkStoragePermission()` / `checkPhotosPermission()`<br>`handleStoragePermission()` / `handlePhotosPermission()` |
+| **Notifications** | `notifications` | - | `android.permission.POST_NOTIFICATIONS` | `requestNotifications()`<br>`checkNotificationsPermission()`<br>`handleNotificationsPermission()` |
+| **Bluetooth** | `bluetooth` | `NSBluetoothAlwaysUsageDescription` | `android.permission.BLUETOOTH_CONNECT` | `requestBluetooth()`<br>`checkBluetoothPermission()`<br>`handleBluetoothPermission()` |
+| **Calendar** | `calendar` | `NSCalendarsUsageDescription` | `android.permission.READ_CALENDAR` | `requestCalendar()`<br>`checkCalendarPermission()`<br>`handleCalendarPermission()` |
+| **Reminders** | `reminders` | `NSRemindersUsageDescription` | - | `requestReminders()`<br>`checkRemindersPermission()`<br>`handleRemindersPermission()` |
+| **Motion** | `motion` | `NSMotionUsageDescription` | `android.permission.ACTIVITY_RECOGNITION` | `requestMotion()`<br>`checkMotionPermission()`<br>`handleMotionPermission()` |
+| **Media Library** | `mediaLibrary` | `NSAppleMusicUsageDescription` | `android.permission.READ_MEDIA_VIDEO` / `AUDIO` | `requestMediaLibrary()`<br>`checkMediaLibraryPermission()`<br>`handleMediaLibraryPermission()` |
+| **Speech** | `speechRecognition` | `NSSpeechRecognitionUsageDescription` | `android.permission.RECORD_AUDIO` | `requestSpeechRecognition()`<br>`checkSpeechRecognitionPermission()`<br>`handleSpeechRecognitionPermission()` |
+| **Tracking** | `tracking` | `NSUserTrackingUsageDescription` | - | `requestTracking()`<br>`checkTrackingPermission()`<br>`handleTrackingPermission()` |
+| **FaceID** | `faceId` | `NSFaceIDUsageDescription` | - | `requestFaceId()`<br>`checkFaceIdPermission()`<br>`handleFaceIdPermission()` |
+| **Siri** | `siri` | `NSSiriUsageDescription` | - | `requestSiri()`<br>`checkSiriPermission()`<br>`handleSiriPermission()` |
+
 ---
-
-## 🧱 Supported Permissions
-
-- **Camera** (`camera`)
-- **Location** (`location`, `locationAlways`)
-- **Microphone** (`microphone`)
-- **Contacts** (`contacts`)
-- **Storage/Gallery** (`storage`, `photos`)
-- **Notifications** (`notifications`)
-- **Bluetooth** (`bluetooth`)
-- **Calendar** (`calendar`)
-- **Reminders** (`reminders`)
-- **Motion** (`motion`)
-- **Media Library** (`mediaLibrary`)
-- **Speech Recognition** (`speechRecognition`)
-- **App Tracking Transparency** (`tracking`)
-- **FaceID** (`faceId`)
-- **Siri** (`siri`)
 
 ---
 
 ## 🛠️ Advanced: Custom Blocked Handler
-If you prefer callbacks over hooks:
+
+If you prefer callbacks over hooks, every `handle...` method accepts an `onBlocked` callback as the final argument.
 
 ```typescript
-await handlePermission(
-  PERMISSION_TYPES.camera,
-  undefined, 
-  undefined,
+import { handleCameraPermission } from 'rn-permission-kit';
+
+await handleCameraPermission(
+  "Custom Title", 
+  "Custom Message",
   () => {
     console.log("Custom logic for blocked permission!");
   }
